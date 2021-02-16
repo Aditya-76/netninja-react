@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import BlogList from './BlogList';
 
 const Home = () => {
 
@@ -8,15 +9,16 @@ const Home = () => {
         {title: 'using useState hook', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', author: 'Kodar', id:3 }
     ]);
 
+    const handleDelete = (id) => {
+        console.log('I am the function');
+        const newBlogs = blogs.filter((blog) => blog.id !== id);
+        setBlogs(newBlogs);
+    };
+
     return ( 
         <div className="home">
-            {blogs.map((blog) => (
-                <div className="blog-preview" key={blog.id}>
-                    <h2>{blog.title}</h2>
-                    <p>Written by: {blog.author}</p>
-                    <br/>
-                </div>
-            ))}
+            <BlogList blogs={blogs} title='ALL BLOGS'/>
+            <BlogList blogs={blogs.filter((blog) => blog.author === "Aditya")} title="Aditya's Blogs" handleDelete={handleDelete} />
         </div>
      );
 }
